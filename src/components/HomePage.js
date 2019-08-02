@@ -73,11 +73,13 @@ HomePage.propTypes = {
 };
 
 
-const mapStateToProps = ({ questions, answer, users, authedUser }) => {
-  const user = users[authedUser];
+const mapStateToProps = ({ questions, answer, users, authedUserId }) => {
   
+  const user = users[authedUserId];
+  console.log(user.answer);
+
   const answeredQuestions = Object.keys(user.answers)
-    .sort((a, b) => questions[b].timestamp - questions[a].timestamp);
+ .sort((a, b) => questions[b].timestamp - questions[a].timestamp);
   return {
     answeredQuestions,
     unansweredQuestions: Object.keys(questions).filter(qid => !answeredQuestions.includes(qid))

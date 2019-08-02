@@ -50,8 +50,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ authedUser }) => ({
-  notLoggedIn: authedUser === null,
+const mapStateToProps = ({ authedUserId }) => ({
+  notLoggedIn: authedUserId === null,
 });
 
 const mapDispatchToProps = dispatch => ({
