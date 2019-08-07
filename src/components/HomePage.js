@@ -12,11 +12,12 @@ class HomePage extends Component {
   state = {
     activeTab: '1',
   };
-
+/***
 constructor (props) {
   super (props);
   this.toggle=this.toggle.bind(this);
 }
+***/
   toggle(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
@@ -26,7 +27,7 @@ constructor (props) {
   }
 
   render() {
-    const { answeredQuestions, unansweredQuestions } = this.props;
+    const { answeredQuestions, unansweredQuestions, user, users, authedUserId } =this.props;
     return (
       <div>
         <Nav tabs>
@@ -45,7 +46,7 @@ constructor (props) {
           <TabPane tabId="1">
             <Row>
               {unansweredQuestions.map(qid => (
-                <Col key={qid} sm="4">
+                <Col key={qid} sm="6">
                   <Question id={qid} />
                 </Col>
               ))}
@@ -54,7 +55,7 @@ constructor (props) {
           <TabPane tabId="2">
             <Row>
               {answeredQuestions.map(qid => (
-                <Col key={qid} sm="4">
+                <Col key={qid} sm="6">
                   <Question id={qid} />
                 </Col>
               ))}
@@ -74,7 +75,7 @@ HomePage.propTypes = {
 
 
 const mapStateToProps = ({ questions, answer, users, authedUserId }) => {
-  
+  console.log(users);
   const user = users[authedUserId];
   console.log(user.answer);
 
