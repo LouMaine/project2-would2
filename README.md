@@ -1,60 +1,114 @@
-<p align="center">
-  <a href="https://yarnpkg.com/">
-    <img alt="Yarn" src="https://github.com/yarnpkg/assets/blob/master/yarn-kitten-full.png?raw=true" width="546">
-  </a>
-</p>
+WOULD YOU RATHER PROJECT:
 
-<p align="center">
-  Fast, reliable, and secure dependency management.
-</p>
+This project is for Udacity's React & Redux course. It's a would you rather do this or that question game That USERS have asked. The project has list of questions that are answered and unanswered.
+The game displays leaderboard and polling page for each users questions. And Users can ask new new question.
 
-<p align="center">
-  <a href="https://circleci.com/gh/yarnpkg/yarn"><img alt="Circle Status" src="https://circleci.com/gh/yarnpkg/yarn.svg?style=shield&circle-token=5f0a78473b0f440afb218bf2b82323cc6b3cb43f"></a>
-  <a href="https://ci.appveyor.com/project/kittens/yarn/branch/master"><img alt="Appveyor Status" src="https://ci.appveyor.com/api/projects/status/0xdv8chwe2kmk463?svg=true"></a>
-  <a href="https://dev.azure.com/yarnpkg/yarn/_build"><img alt="Azure Pipelines status" src="https://dev.azure.com/yarnpkg/yarn/_apis/build/status/Yarn%20Acceptance%20Tests"></a>
-  <a href="https://discord.gg/yarnpkg"><img alt="Discord Chat" src="https://img.shields.io/discord/226791405589233664.svg"></a>
-  <a href="http://commitizen.github.io/cz-cli/"><img alt="Commitizen friendly" src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg"></a>
-</p>
+The _DATA.js file is the database used for creating the project. 
+Each login user (avatar) has an avatar it corresponds the file name needs the path to each user™s avatar.
 
----
 
-**Fast:** Yarn caches every package it has downloaded, so it never needs to download the same package again. It also does almost everything concurrently to maximize resource utilization. This means even faster installs.
+How to Create files for this React/Redux front end Application:
 
-**Reliable:** Using a detailed but concise lockfile format and a deterministic algorithm for install operations, Yarn is able to guarantee that any installation that works on one system will work exactly the same on another system.
+1. Use Create React App to bootstrap the project.
 
-**Secure:** Yarn uses checksums to verify the integrity of every installed package before its code is executed.
+2. Installing and Launching the project
+3. Change to the directory of the project
+4. Run npm install or yarn to install all dependencies
+5. Run npm start or yarn start to start the web development application server
 
-## Features
+You can learn more information on REACT from these locations searches:
+1. To learn React, check out the > React documentation.
+2. You can learn more in the > Create React App documentation.
 
-* **Offline Mode.** If you've installed a package before, then you can install it again without an internet connection.
-* **Deterministic.** The same dependencies will be installed in the same exact way on any machine, regardless of installation order.
-* **Network Performance.** Yarn efficiently queues requests and avoids request waterfalls in order to maximize network utilization.
-* **Network Resilience.** A single request that fails will not cause the entire installation to fail. Requests are automatically retried upon failure.
-* **Flat Mode.** Yarn resolves mismatched versions of dependencies to a single version to avoid creating duplicates.
-* **More emojis.** 🐈
 
-## Installing Yarn
+Components Name  Description
 
-Read the [Installation Guide](https://yarnpkg.com/en/docs/install) on our website for detailed instructions on how to install Yarn.
+ Nav:  navigation to to pages in the program 
+ AddQuestionPage:  Page to add poll question
+ HomePage: Page to render the list of answered and unanswered questions for the logged in user LeaderboardPage: Page to display the leaderboard of users
+ LoginPage: Page to allow selection of user to log in as Avatar
+ ErrorPage: error message alert if steps are not followed
+ QuestionDetails: Component that displays a summary of a poll question options details
+ UserPage: returns user login Avatar information
 
-## Using Yarn
+Utils
+routes - this contains the list of routes used by React-Router in navigating thru the application
+State objects
+State objects follow the layout of the database namely
 
-Read the [Usage Guide](https://yarnpkg.com/en/docs/usage) on our website for detailed instructions on how to use Yarn.
+Users - holds the list of users
+Questions - holds the list of questions objects in the database
+AuthedUser - holds the ID of the current logged in User
 
-## Contributing to Yarn
+Data
+There are two types of objects stored in our database:
 
-Contributions are always welcome, no matter how large or small. Substantial feature requests should be proposed as an [RFC](https://github.com/yarnpkg/rfcs). Before contributing, please read the [code of conduct](CODE_OF_CONDUCT.md).
+Users:
+Questions:
 
-See [Contributing](https://yarnpkg.com/org/contributing/).
+Attribute	Type	Description
+identifier	String	The userâ€™s unique identifier
+name		String	The userâ€™s first name and last name
+avatarURL	String	The path to the image file
+questions	Array	A list of ids of the polling questions this user created
+answers		Object	The object's keys are the ids of each question this user answered. The value of each key is the answer the user selected. It can be either 'optionOne' or 'optionTwo' since each question has two options.
 
-## Prior art
+Questions
+Questions include:
 
-Yarn wouldn't exist if it wasn't for excellent prior art. Yarn has been inspired by the following projects:
+Attribute	Type	Description
+id		String	The questionâ€™s unique identifier
+author	String	The authorâ€™s unique identifier
+timestamp	String	The time when the question was created
+optionOne	Object	The first voting option
+optionTwo	Object	The second voting option
+Voting Options
+Voting options are attached to questions. They include:
 
- - [Bundler](https://github.com/bundler/bundler)
- - [Cargo](https://github.com/rust-lang/cargo)
- - [npm](https://github.com/npm/cli)
+Attribute	Type	Description
+votes		Array	A list that contains the id of each user who voted for that option
+text		String	The text of the option
 
-## Credits
+Your code will talk to the database via these 4 methods:
+_getUsers()
+_getQuestions()
+_saveQuestion(question)
+_saveQuestionAnswer(object)
 
-Thanks to [Sam Holmes](https://github.com/samholmes) for donating the npm package name!
+1. _getUsers() Method
+
+Description: Get all of the existing users from the database.
+Return Value: Object where the key is the userâ€™s id and the value is the user object.
+
+2._getQuestions() Method
+
+Description: Get all of the existing questions from the database.
+Return Value: Object where the key is the questionâ€™s id and the value is the question object.
+
+3._saveQuestion(question) Method
+Description: Save the polling question in the database.
+Parameters: Object that includes the following properties: author, optionOneText, and optionTwoText. More details about these properties:
+
+
+Attribute	Type	Description
+authorâ€™s		String	The id of the user who posted the question
+optionOneText	String	The text of the first option
+optionTwoText	String	The text of the second option
+Return Value: 	An object that has the following properties: id, author, optionOne, optionTwo, timestamp.
+
+Attribute	Type	Description
+id			String	The id of the question that was posted
+author		String	The id of the user who posted the question
+optionOne	Object	The object has a text property and a votes property, which stores an array of the ids of 			 he users who voted for that option
+optionTwo	Object	The object has a text property and a votes property, which stores an array of the ids of 			 he users who voted for that option
+timestamp	String	The time when the question was created
+
+4._saveQuestionAnswer(object) Method
+Description: Save the answer to a particular polling question in the database. Parameters: Object that contains the following properties: authedUser, qid, and answer. More details about these properties:
+
+
+Attribute	Type	Description
+authedUser	String	The id of the user who answered the question
+qid			String	The id of the question that was answered
+answer		String	The option the user selected. The value should be either "optionOne" or "optionTwo"
+
