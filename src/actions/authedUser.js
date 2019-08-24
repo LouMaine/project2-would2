@@ -1,12 +1,12 @@
-export const AUTHED_LOGIN_USER = "AUTHED_LOGIN_USER";
-export const AUTHED_LOGOUT_USER = "AUTHED_LOGOUT_USER";
+export const LOGIN_AUTHED_USER = "LOGIN_AUTHED_USER";
+export const LOGOUT_AUTHED_USER = "LOGOUT_AUTHED_USER";
 
-export const AuthedloginUser = id => ({
-     type: AUTHED_LOGIN_USER,
+export const loginAuthedUser = id => ({
+    type: LOGIN_AUTHED_USER,
     id,
   });
 
 
-export const AuthedlogoutUser = () => ({
-     type: AUTHED_LOGOUT_USER,
+export const logoutAuthedUser = () => ({
+     type: LOGOUT_AUTHED_USER,
   });

@@ -1,35 +1,31 @@
 
 import { showLoading, hideLoading } from "react-redux-loading-bar";
-//import  {loadQuestions } from "./questions";
-import { _saveQuestionAnswer } from "../_DATA";
-
-import { _getUsers } from "../_DATA";
+//import {getInitialData} from "../utils/api";
+//import { _getUsers, _getQuestions, _saveQuestionAnswer } from "../_DATA";
+import { _getUsers, _getQuestions, _saveQuestionAnswer } from '../_DATA';
 import { receiveUsers } from "./users";
-import { addUserAnswer} from "./users"; 
-import { saveAnswer } from "./questions";
-
-//import { addQuestion, handleLoadQuestions } from "./questions";
-//import { handleReceiveUsers } from "./users";
- 
-
-
+import { getQuestions} from "./questions";
+import { addUserAnswer} from "./users";
+import {addAnswerToQestion } from "./actions/questions"
+//import { saveAnswer } from "./questions";
+//import {_getQuestions} from "../utils/api";
 
 /**export const handleSaveQuestionAnswer = (authedUserId, questionId, answer) => {
  
   return  async dispatch => {
-    await saveQuestionAnswer(authedUserId, questionId, answer);
+    await _saveQuestionAnswer(authedUserId, questionId, answer);
     dispatch(handleReceiveUsers());
-    dispatch(handleLoadQuestions());
+    dispatch(handleSaveQuestion());
   };
-};
-**/
+};**/
+
 
 export const handleInitialData = () => (dispatch) => {
   dispatch(showLoading());
-  return Promise.all(_getUsers())
-    .then((users) => {
+  return Promise.all([_getUsers(), _getQuestions()])
+    .then(([users, questions]) => {
       dispatch(receiveUsers(users));
-      //dispatch(getQuestions(questions));
+      dispatch(getQuestions(questions));
       dispatch(hideLoading());
     });
 };
@@ -44,25 +40,25 @@ export const handleSaveAnswer = (qid, answer) => (dispatch, getState) => {
     answer,
   })
     .then(() => {
-      dispatch(saveAnswer(authedUser, qid, answer));
+      dispatch(addAnswerToQestions(authedUser, qid, answer)
+      //dispatch(saveAnswer(authedUser, qid, answer));
       dispatch(addUserAnswer(authedUser, qid, answer));
     })
     .then(() => dispatch(hideLoading()));
 };
 
 
-/**
-export const handleInitialData = () => (dispatch) => {
-  dispatch(showLoading());
-  return Promise.all([_getUsers(), _getQuestions()])
-    .then(([users, questions]) => {
-      dispatch(receiveUsers(users));
-      dispatch(getQuestions(questions));
-      dispatch(hideLoading());
-    });
-};
-**/
-/**export  const { authedUser } = getState();
+/*
+
+
+
+
+
+
+
+
+
+*export  const { authedUser } = getState();
 
   dispatch(showLoading());
   return _saveQuestionAnswer({

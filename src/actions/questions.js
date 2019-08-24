@@ -1,42 +1,27 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
-
-import { _saveQuestion} from "../_DATA";
+import { _saveQuestion } from "../utils/_DATA";
+import {addQuestionToUser} from '../actions/users';
 
 export const GET_QUESTIONS = "GET_QUESTIONS";
-export const SAVE_QUESTION="SAVE_QUESTION";
-export const SAVE_QUESTION_ANSWER ="SAVE_QUESTION_ANSWER";
+export const SAVE_QUESTION = "SAVE_QUESTION";
+export const ADD_ANSWER_TO_QUESTION = "ADD_ANSWER_TO_QUESTION";
 
 
-// loading  questions
-/**return {
-type: GET_QUESTIONS,
-questions
-};
-};
-**/
 
 export const getQuestions = questions => {
-  return {
-    type: GET_QUESTIONS,
-    questions,
-  };
+  return ({
+  type: GET_QUESTIONS,
+  questions,
+})
 };
 
-export const saveQuestion = question => {
-     return {
-     type: SAVE_QUESTION,
-     question,
-   };
- };
 
-/**
-export const handleLoadQuestions = () => {
-return async dispatch => {
-    const questions = await getQuestions();
-    dispatch(loadQuestions(questions));
-  };
-}; 
-**/
+
+export const saveQuestion = question => ({
+  type: SAVE_QUESTION,
+  question,
+});
+
 
 export const handleSaveQuestion = (optionOneText, optionTwoText) => (dispatch, getState) => {
   const { authedUser } = getState();
@@ -53,19 +38,17 @@ export const handleSaveQuestion = (optionOneText, optionTwoText) => (dispatch, g
 };
 
 
-/**return dispatch => {
-    return _getQuestions().then(response => {
-      // convert questions to array
-      const qIndices = Object.keys(response);
-      const questions = qIndices.map(index => response[index]);
-      dispatch(getQuestions(questions));
-    });
-    **/
-
-export const saveAnswer = ({ authedUser, qid, answer}) => ({
-  type: SAVE_QUESTION_ANSWER,
+export const addAnswerToQuestion = ({ authedUser, qid, answer }) => ({
+  type: ADD_ANSWER_TO_QUESTION,
   authedUser,
   qid,
   answer
-});
+};
+}
+function saveQuestion(question) {
+  return {
+    type: SAVE_QUESTION,
+    question
+  };
+}
 
