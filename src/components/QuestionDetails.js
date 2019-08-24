@@ -1,13 +1,14 @@
  
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { Card, CardHeader, CardBody, CardTitle, FormGroup, Label, Input, Form, Button } from "reactstrap";
 import { FaCheck } from "react-icons/fa";
 import { handleSaveAnswer } from "../actions/shared";
-import Users from "./Users";
+import Avatar from "./Avatar";
 
+/*** Used FormGroup, Card, CardBody, Labels code from the 'reactstrap' website and 'Github notes'****/
 
 class QuestionDetails extends Component {
   state = {
@@ -26,7 +27,7 @@ class QuestionDetails extends Component {
   }
 
   render() {
-    const { question, questionAuthor, isAnswered, isOptionOneAnswered } = this.props;
+    const {questionAuthor, Author, User, question,  isAnswered, isOptionOneAnswered } = this.props;
 
     if (!question) {
       return <Redirect to="/ErrorPage" />;
@@ -39,12 +40,13 @@ class QuestionDetails extends Component {
     const percentageOptionOne = (optionOneVotes / (optionOneVotes + optionTwoVotes) * 100).toFixed(2);
     const percentageOptionTwo = (optionTwoVotes / (optionOneVotes + optionTwoVotes) * 100).toFixed(2);
 
-    const checkmark = <FaCheck size="25" color="red" />;
+    const checkmark = <FaCheck size="30" color="gray" />;
 
     return (
       <Card>
         <CardHeader>
-          <Users id={questionAuthor.id} />
+        /***  Information from reactstrap Github components Cards, Forms Buttons**/
+         <User id={questionAuthor.id} /> 
         </CardHeader>
         <CardBody>
           <CardTitle>Rather Do...?</CardTitle>
@@ -96,11 +98,7 @@ const mapStateToProps = ({ questions, users, authedUser }, props) => {
   const isOptionOneAnswered = question.optionOne.votes.includes(authedUser);
   const isOptionTwoAnswered = question.optionTwo.votes.includes(authedUser);
   const isAnswered = isOptionOneAnswered || isOptionTwoAnswered;
-  return {
-    question,
-    questionAuthor,
-    isAnswered,
-    isOptionOneAnswered,
+  return { question, questionAuthor, isAnswered, isOptionOneAnswered,
   };
 };
 

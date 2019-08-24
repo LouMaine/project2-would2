@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+//import PropTypes from 'prop-types';
 
-export const Avatar = props => {
-  const { picture, name, big} = props;
-  return (
-    <img
-      src={picture}
-      alt={name}
-      style={big===true? {borderRadius:100, height:"100px"}: { borderRadius:50,height:"50px" }}
-    />
-  );
-};
 
-export default Avatar;
+
+class Avatar extends Component {
+  render() {
+    const { users, authedUserId } = this.props.store;
+    if (!authedUserId) {
+      return null;
+    }
+    let currentUser = users[authedUserId];
+    return (
+      <Fragment>
+        <span>{currentUser.name}</span>
+        <img src={currentUser.avatarURL} className="avatar" alt={`Avatar ${currentUser.name}`} />
+      </Fragment>
+    );
+  }
+}
+
+function mapStateToProps(store) {
+  return {store:store};
+}
+
+
+export default connect(mapStateToProps)(Avatar);

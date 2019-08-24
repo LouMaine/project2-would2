@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardTitle, FormGroup, Label, Input, Form, Button } from 'reactstrap';
+import {handleSaveQuestionAnswer} from '../actions/users';
+import {handleSaveQuestionAnswer} from '../actions/shared';
 
-class NewQuestion extends Component {
+export class NewQuestion extends Component {
+    static propTypes = {
+    authUser: PropTypes.string.isRequired,
+    handleSaveQuestionAnswer: PropTypes.func.isRequired,
+    question: PropTypes.object.isRequired
+  };
+
   state = {
+    value: {
     optionOne: '',
     optionTwo: '',
   }
+}
 
   handleOptionOneChange = (e) => {
     e.preventDefault();
@@ -23,9 +33,14 @@ class NewQuestion extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-  }
+     if (this.state.value !== '') {
+      const { authUser, question, handleSaveQuestionAnswer } = this.props;
+      handleSaveQuestionAnswer(authedUser, question.id, this.state.value);
+    }
+  };
 
   render() {
+    const {question} =this.props;
     const { optionOne, optionTwo } = this.state;
     return (
       <Card>
@@ -35,6 +50,7 @@ class NewQuestion extends Component {
             <FormGroup>
               <Label for="optionOne">Option One</Label>
               <Input
+                id="optionOne"
                 type="text"
                 value={optionOne}
                 onChange={this.handleOptionOneChange}
@@ -44,6 +60,7 @@ class NewQuestion extends Component {
             <FormGroup>
               <Label for="optionTwo">Option Two</Label>
               <Input
+                id="optionTwo"
                 type="text"
                 name="optionTwo"
                 value={optionTwo}
@@ -58,5 +75,15 @@ class NewQuestion extends Component {
     );
   }
 }
+function mapStateToProps({ authUser }, { match }) {
+   const { question_id } = match.params;
+   const question = questions[question_id];
 
-export default NewQuestion;
+  return {
+    authedUser
+  };
+}
+
+export default connect(mapStateToProps,{ handleSaveQuestionAnswer }
+)(NewQuestion);
+

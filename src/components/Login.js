@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { connect } from "react-redux";
 //import PropTypes from "prop-types";
-import { AuthedloginUser } from "../actions/authedUser";
+import { loginAuthedUser } from "../actions/authedUser";
 
 
 class Login extends Component {
@@ -10,13 +10,13 @@ class Login extends Component {
     userId: '',
   }
 
-  atUserChange = (userId) => { this.setState({ userId }); }
+  onUserChange = (userId) => { this.setState({ userId }); }
 
   atLogin = () => {
     const { userId } = this.state;
-    const { AuthedloginUser } = this.props;
+    const { loginAuthedUser } = this.props;
     if (userId) {
-      AuthedloginUser(userId);
+      loginAuthedUser(userId);
     }
   }
 
@@ -26,8 +26,9 @@ class Login extends Component {
     return (
       <Form>
         <FormGroup>
-          <Label for="selectUser">Please Login In</Label>
-          <Input type="select" name="select" value={userId} id="selectUser" onChange={event => this.onUserChange(event.target.value)}>
+          <Label for="selectUser">Please Login to continue</Label>
+          <Input type="select" name="select" value={userId} id="selectUser"
+            onChange={event => this.onUserChange(event.target.value)}>
             <option value="" disabled>Pick a user</option>
             {
               Object.keys(users).map(user => (
@@ -52,8 +53,8 @@ function mapStateToProps({ users }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    AuthedloginUser: (id) => {
-      dispatch(AuthedloginUser(id));
+    loginAuthedUser: (id) => {
+      dispatch(loginAuthedUser(id));
     },
   };
 }

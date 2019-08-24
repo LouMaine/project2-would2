@@ -5,8 +5,11 @@ import PropTypes from 'prop-types';
 import LoadingBar from "react-redux-loading-bar";
 import { Container } from "reactstrap";
 import { handleInitialData } from "../actions/shared";
+//import {handleReceiveUsers } from "../actions/users";
+//import {handle } from "../actions/questions";
 import Login from "./Login";
-import Nav from "./Nav";
+import Avatar from "./Avatar";
+import NavItems from "./NavItems";
 import HomePage from "./HomePage";
 import QuestionDetails from "./QuestionDetails";
 import Leaderboard from "./Leaderboard";
@@ -20,18 +23,19 @@ class App extends Component {
   }
 
   render() {
-    const { notLoggedIn } = this.props;
+    const { notLogged } = this.props;
 
-    
+
     return (
-        <Router>
+      <Router>
         <Fragment>
           <LoadingBar />
-          <Nav />
+          <NavItems />
           <Container>
+          
             <Switch>
               {
-                notLoggedIn ? <Route path="/" exact component={Login} />
+                notLogged ? <Route path="/" exact component={Login} />
                   : (
                     <Fragment>
                       <Route path="/" exact component={HomePage} />
@@ -51,7 +55,7 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ authedUserId }) => ({
-  notLoggedIn: authedUserId === null,
+  notLogged: authedUserId === null,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -63,7 +67,7 @@ const mapDispatchToProps = dispatch => ({
 
 App.propTypes = {
   handleInitialData: PropTypes.func.isRequired,
-  notLoggedIn: PropTypes.bool.isRequired,
+  notLogged: PropTypes.bool.isRequired,
 };
 
 

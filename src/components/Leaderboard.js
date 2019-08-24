@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
-import Nav from "./Nav";
+import NavItems from "./NavItems";
 
 class Leaderboard extends Component {
   render() {
     return (
       <Fragment>
-        <Nav />
+        <NavItems />
         <div>Leaderboard</div>
       </Fragment>
     );

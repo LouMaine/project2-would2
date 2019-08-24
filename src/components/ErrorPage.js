@@ -6,7 +6,7 @@ export const ErrorPage = () => {
     <Card>
       <CardTitle>404 error</CardTitle>
       <CardBody>
-        Sorry, the page you are looking for not found
+        Sorry, the page does not exist
       </CardBody>
     </Card>
   );
