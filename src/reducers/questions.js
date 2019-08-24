@@ -1,19 +1,19 @@
-import { GET_QUESTIONS, SAVE_QUESTION, SAVE_QUESTION_ANSWER } from "../actions/questions";
+import { GET_QUESTIONS, SAVE_QUESTION, ADD_ANSWER_TO_QUESTION } from "../actions/questions";
 
 export const questions = (state = [], action) => {
   switch (action.type) {
     case GET_QUESTIONS:
       return {
-      	...state,
+        ...state,
         ...action.questions,
-  };
+      };
     case SAVE_QUESTION:
       return {
-      ...state,
-      ...action.questions,
-  };
+        ...state,
+        ...action.questions,
+      };
 
-      case SAVE_QUESTION_ANSWER:
+    case ADD_ANSWER_TO_QUESTION:
       return {
         ...state,
         ...action.questions,
