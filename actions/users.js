@@ -41,7 +41,7 @@ export const handleSaveQuestionAnswer = (authedUserId, questionId, answer) => {
   };
 }
 
-export const addQuestionToUser({ id, author }) {
+export const addQuestionToUser=({ id, author })=> {
   return {
     type: ADD_QUESTION_TO_USER,
     id,
