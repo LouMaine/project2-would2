@@ -1,89 +1,85 @@
-import React, { Component } from 'react';
-import { Card, CardBody, CardTitle, FormGroup, Label, Input, Form, Button } from 'reactstrap';
-import {handleSaveQuestionAnswer} from '../actions/users';
-import {handleSaveQuestionAnswer} from '../actions/shared';
+import React, { Component  } from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Card, CardBody, CardFooter, CardTitle, FormGroup, Label, Input, Form, Button } from 'reactstrap';
+import {handleSaveQuestion} from '../actions/questions';
+import { routes } from "../utils";
+
 
 export class NewQuestion extends Component {
-    static propTypes = {
-    authUser: PropTypes.string.isRequired,
-    handleSaveQuestionAnswer: PropTypes.func.isRequired,
-    question: PropTypes.object.isRequired
-  };
-
-  state = {
-    value: {
-    optionOne: '',
-    optionTwo: '',
-  }
+   constructor(props) {
+    super(props);
+    this.submitForm = this.submitForm.bind(this);
 }
 
-  handleOptionOneChange = (e) => {
-    e.preventDefault();
-    this.setState({
-      optionOne: e.target.value,
-    });
+ /** }
+ state = {
+    optionOneText: '',
+    optionTwoText: '',
+  }**/
+
+  submitForm(e) {
+    const { onSubmitForm, history } = this.props;
+    onSubmitForm(e);
+    history.push(routes.root);
   }
 
-  handleOptionTwoChange = (e) => {
-    e.preventDefault();
-    this.setState({
-      optionTwo: e.target.value,
-    });
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-     if (this.state.value !== '') {
-      const { authUser, question, handleSaveQuestionAnswer } = this.props;
-      handleSaveQuestionAnswer(authedUser, question.id, this.state.value);
-    }
-  };
-
+ 
   render() {
-    const {question} =this.props;
-    const { optionOne, optionTwo } = this.state;
+    const {questions, optionOneText, optionTwoText, authedUser }= this.props;
+    //const {questions, users}=> props;
+    
     return (
+      <React.Fragment>
+        <Form onSubmit={this.submitForm}>
+       
       <Card>
-        <CardBody>
-          <CardTitle>You Rather Do ?</CardTitle>
-          <Form onSubmit={this.handleSubmit}>
-            <FormGroup>
-              <Label for="optionOne">Option One</Label>
-              <Input
-                id="optionOne"
-                type="text"
-                value={optionOne}
-                onChange={this.handleOptionOneChange}
-                placeholder="Type option one"
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="optionTwo">Option Two</Label>
-              <Input
-                id="optionTwo"
-                type="text"
-                name="optionTwo"
-                value={optionTwo}
-                onChange={this.handleOptionTwoChange}
-                placeholder="Type option two"
-              />
-            </FormGroup>
-            <Button disabled={optionOne === '' || optionTwo === ''}>Submit</Button>
-          </Form>
-        </CardBody>
+              
+         <CardTitle>You Rather Do ?</CardTitle>
+            <CardBody>
+              <Input type="text" placeholder="Type option one" id="optionOne" />
+                <br />    
+              <Input type="text" placeholder="Type option two" id="optionTwo"  />
+                            
+             </CardBody>
+
+            <CardFooter>
+              <input type="hidden" id="authorId" value={authedUser} />
+              <Button type="submit">Save</Button>
+            </CardFooter>
+
       </Card>
+        </Form>
+      </React.Fragment>
+ 
     );
   }
 }
-function mapStateToProps({ authUser }, { match }) {
-   const { question_id } = match.params;
-   const question = questions[question_id];
+const mapStateToProps = state => {
+  return { authedUser: state.authedUser };
+};
 
-  return {
-    authedUser
-  };
-}
 
-export default connect(mapStateToProps,{ handleSaveQuestionAnswer }
-)(NewQuestion);
+const mapDispatchToProps = dispatch => ({
+  onSubmitForm: e => {
+    e.preventDefault();
+    const questions = {
+     author: e.target.authorId.value,
+      
+     optionOneText: e.target.optionOne.value,
+     optionTwoText: e.target.optionTwo.value
+    };
+    dispatch(handleSaveQuestion(questions));
+  }
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(NewQuestion)
+);
+
+
 
