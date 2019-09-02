@@ -6,11 +6,11 @@ import { connect } from "react-redux";
 
 class Avatar extends Component {
   render() {
-    const { users, authedUserId } = this.props.store;
-    if (!authedUserId) {
+    const { users, authedUser } = this.props.store;
+    if (!authedUser) {
       return null;
     }
-    let currentUser = users[authedUserId];
+    let currentUser = users[authedUser];
     return (
       <Fragment>
         <span>{currentUser.name}</span>
