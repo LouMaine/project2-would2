@@ -42,7 +42,6 @@ let questions = {
   '8xf0y6ziyjabvozdd253nd': {
     id: '8xf0y6ziyjabvozdd253nd',
     author: 'bender_robo',
-    questionText: 'Question 1',
     timestamp: 1467166872634,
     optionOne: {
       votes: ['bender_robo'],
@@ -56,7 +55,6 @@ let questions = {
   '6ni6ok3ym7mf1p33lnez': {
     id: '6ni6ok3ym7mf1p33lnez',
     author: 'lilastoy_stone',
-    questionText: 'Question 2',
     timestamp: 1468479767190,
     optionOne: {
       votes: [],
@@ -70,7 +68,6 @@ let questions = {
   am8ehyc8byjqgar0jgpub9: {
     id: 'am8ehyc8byjqgar0jgpub9',
     author: 'bender_robo',
-    questionText: 'Question 3',
     timestamp: 1488579767190,
     optionOne: {
       votes: [],
@@ -84,7 +81,6 @@ let questions = {
   loxhs1bqm25b708cmbf3g: {
     id: 'loxhs1bqm25b708cmbf3g',
     author: 'hitchhiker_sammy',
-    questionText: 'Question 4',
     timestamp: 1482579767190,
     optionOne: {
       votes: [],
@@ -99,7 +95,6 @@ let questions = {
     id: 'vthrdm985a262al8qx3do',
     author: 'hitchhiker_sammy',
     timestamp: 1489579767190,
-    questionText: 'Question 5',
     optionOne: {
       votes: ['hitchhiker_sammy'],
       text: '  find $50 yourself  '
@@ -112,7 +107,6 @@ let questions = {
   xj352vofupe1dqz9emx13r: {
     id: 'xj352vofupe1dqz9emx13r',
     author: 'lilastoy_stone',
-    questionText: 'Question 6',
     timestamp: 1493579767190,
     optionOne: {
       votes: ['lilastoy_stone'],
@@ -142,7 +136,7 @@ function generateUID() {
 export function _getUsers() {
   return new Promise((res, rej) => {
     setTimeout(() => res({ ...users }), 1000);
-  })
+  });
 }
 
 export function _getQuestions() {
@@ -173,7 +167,7 @@ function formatQuestion({ optionOneText, optionTwoText, author }) {
       votes: [],
       text: optionTwoText
     }
-  }
+  };
 }
 
 export function _saveQuestion(question) {
@@ -197,7 +191,7 @@ export function _saveQuestion(question) {
 
       res(formattedQuestion);
     }, 1000);
-  });
+  })
 }
 
 export function _saveQuestionAnswer({ authedUser, qid, answer }) {
@@ -212,7 +206,7 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
             [qid]: answer
           }
         }
-      }
+      };
 
       questions = {
         ...questions,
@@ -223,9 +217,9 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
             votes: questions[qid][answer].votes.concat([authedUser])
           }
         }
-      }
+      };
 
       res()
     }, 500)
-  })
+  });
 }
