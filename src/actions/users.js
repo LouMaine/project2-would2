@@ -1,10 +1,11 @@
-import { saveQuestionAnswer } from '../utils/api';
-import { addAnswerToQuestion } from '../actions/questions';
+import { saveQuestionAnswer } from "../utils/api";
+import { AnswerToQuestion } from "../actions/questions";
+//import { AnswerToQuestion} from "../actions/questions"
 
-export { getUsers } from "../utils/api";
+
 export const RECEIVE_USERS = "RECEIVE_USERS";
-export const ADD_USER_ANSWER = "ADD_USER_ANSWER";
-export const ADD_QUESTION_TO_USER = "ADD_QUESTION_TO_USER"
+export const ANSWER_TO_USER = "ANSWER_TO_USER";
+export const QUESTION_TO_USER= "QUESTION_TO_USER";
 
 
 export const receiveUsers = users => ({
@@ -12,41 +13,30 @@ export const receiveUsers = users => ({
     users
   });
 
-
-
-export const addUserAnswer = (authedUser, answer, qid) => ({
-    type: ADD_USER_ANSWER,
+function AnswerToUser(authedUser, qid, answer) {
+  return {
+    type: ANSWER_TO_USER,
     authedUser,
     qid,
     answer
-  });
-
-
-export const handleReceiveUsers = () => {
-  return async dispatch => {
-    const users = await getUsers();
-    dispatch(receiveUsers(users));
   };
-};
+}
 
-export const handleSaveQuestionAnswer = (authedUserId, questionId, answer) => {
-  return async dispatch => {
-    dispatch(addUserAnswer(authUser, qid, answer));
-    dispatch(addAnswerToQuestion(authUser, qid, answer));
+export function handleSaveQuestionAnswer(authedUser, qid, answer) {
+  return dispatch => {
+    dispatch(AnswerToUser(authedUser, qid, answer));
+    dispatch(AnswerToQuestion(authedUser, qid, answer));
 
-  return  async dispatch => {
-    await _saveQuestionAnswer(authedUserId, questionId, answer).catch(e=> {
-    console.warn('Error in handleSaveQuestionAnswer:', e);
+    return saveQuestionAnswer(authedUser, qid, answer).catch(e => {
+      console.warn('Error in handleSaveQuestionAnswer:', e);
     });
   };
 }
 
-export const addQuestionToUser=({ id, author })=> {
+export function QuestionToUser({ id, author }) {
   return {
-    type: ADD_QUESTION_TO_USER,
+    type: QUESTION_TO_USER,
     id,
     author
   };
 }
-
-    
