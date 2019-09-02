@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
@@ -6,7 +7,6 @@ import LoadingBar from "react-redux-loading-bar";
 import { Container } from "reactstrap";
 import { handleInitialData } from "../actions/shared";
 //import {handleReceiveUsers } from "../actions/users";
-//import {handle } from "../actions/questions";
 import Login from "./Login";
 import Avatar from "./Avatar";
 import NavItems from "./NavItems";
@@ -54,8 +54,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ authedUserId }) => ({
-  notLogged: authedUserId === null,
+const mapStateToProps = ({ authedUser}) => ({
+  notLogged: authedUser === null,
 });
 
 const mapDispatchToProps = dispatch => ({
