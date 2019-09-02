@@ -1,85 +1,108 @@
-import React, { Component  } from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Card, CardBody, CardFooter, CardTitle, FormGroup, Label, Input, Form, Button } from 'reactstrap';
-import {handleSaveQuestion} from '../actions/questions';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import { routes } from "../utils";
+import {Card, CardBody, CardTitle, Input, Label, Button, FormGroup, Form } from "reactstrap";
 
+import { handleSaveQuestion } from "../actions/questions";
 
 export class NewQuestion extends Component {
-   constructor(props) {
-    super(props);
-    this.submitForm = this.submitForm.bind(this);
+  static propTypes = {
+    authedUser: PropTypes.string.isRequired,
+    handleSaveQuestion: PropTypes.func.isRequired
+  };
+  
+  state = {
+    option1: '',
+    option2: ''
+  };
+
+  handleOptionOneChange = e => {
+  e.preventDefault();
+  const {value} = e.target
+    this.setState({ option1: e.target.value,
+    });
 }
 
- /** }
- state = {
-    optionOneText: '',
-    optionTwoText: '',
-  }**/
-
-  submitForm(e) {
-    const { onSubmitForm, history } = this.props;
-    onSubmitForm(e);
-    history.push(routes.root);
-  }
-
- 
-  render() {
-    const {questions, optionOneText, optionTwoText, authedUser }= this.props;
-    //const {questions, users}=> props;
-    
-    return (
-      <React.Fragment>
-        <Form onSubmit={this.submitForm}>
-       
-      <Card>
-              
-         <CardTitle>You Rather Do ?</CardTitle>
-            <CardBody>
-              <Input type="text" placeholder="Type option one" id="optionOne" />
-                <br />    
-              <Input type="text" placeholder="Type option two" id="optionTwo"  />
-                            
-             </CardBody>
-
-            <CardFooter>
-              <input type="hidden" id="authorId" value={authedUser} />
-              <Button type="submit">Save</Button>
-            </CardFooter>
-
-      </Card>
-        </Form>
-      </React.Fragment>
- 
-    );
-  }
+  handleOptionTwoChange =e => { 
+  e.preventDefault();
+  const {value} = e.target
+  this.setState({ option2: e.target.value,
+    });
 }
-const mapStateToProps = state => {
-  return { authedUser: state.authedUser };
-};
 
-
-const mapDispatchToProps = dispatch => ({
-  onSubmitForm: e => {
+  
+  handleSubmit = e => {
     e.preventDefault();
-    const questions = {
-     author: e.target.authorId.value,
-      
-     optionOneText: e.target.optionOne.value,
-     optionTwoText: e.target.optionTwo.value
-    };
-    dispatch(handleSaveQuestion(questions));
-  }
-});
+       const {authedUser, handleSaveQuestion} =this.props;
+       const {option1, option2}=this.state;
+                     
+       }                     
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(NewQuestion)
-);
+       
+
+
+  render() {
+        //const disabled = this.state.option1 === '' || this.state.option2 === '';
+         const { option1, option2 } = this.state
+     
+    return (
+      //<Fragment>
+      <Card>
+      <CardBody>
+       <CardTitle> Would you Rather....NewPollQuestion</CardTitle>
+        
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup>
+          <Label for="optionOne" lg={2}>Option One</Label>
+            <Input type="text"
+              name="option1"
+              id="option1"
+              value={option1}
+              placeholder="First Option"
+              onChange={this.handleOptionOneChange}
+              />
+         </FormGroup>   
+            <br />      
+         <FormGroup>
+          <Label for="optionTwo" lg={2}>Option Two</Label>
+             <Input type="text"
+               name="option2"
+               id="option2"
+               value={option2}
+               placeholder="Second Option"
+               onChange={this.handleOptionTwoChange}
+               
+               />
+           
+         </FormGroup>
+           
+           <Button size="lg"  >New Question Submit</Button>   
+                    
+         </Form>
+         </CardBody>
+         </Card>
+     );
+  }
+}
+
+function mapStateToProps  ({authedUser }) {
+  return {
+    authedUser
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  { handleSaveQuestion }
+)(NewQuestion);
+
+
+
+
+
+
 
 
 
