@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
 import {
   Collapse,
   Navbar,
@@ -10,9 +10,6 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-//import {Home} from "./HomePage";
-//import Leaderboard from "./Leaderboard";
-//import NewQuestion from "./NewQuestion"
 import PropTypes from "prop-types";
 import { logoutAuthedUser } from "../actions/authedUser";
 import Avatar from "./Avatar";
@@ -29,19 +26,19 @@ class NavItems extends Component {
   }
 
   render() {
-    const { authedUser } = this.props;
+    const { authedUser  } = this.props;
 
     return (
       <div>
         <Navbar color="faded" light expand="md">
-          <NavbarToggler onClick={this.toggle} />
-          
-            
-              <Fragment>
-
-                <NavbarBrand tag={Link} to="/">You Rather Would Choose?</NavbarBrand>
-                {authedUser}
-                <Collapse isOpen={this.state.isOpen} navbar>
+           <NavbarBrand tag={Link} to="/">You Rather Would Choose?</NavbarBrand>
+              {authedUser
+               && (
+                                 
+             <Fragment>
+              <NavbarToggler onClick={this.toggle} />
+                             
+               <Collapse isOpen={this.state.isOpen} navbar>
                   <Nav className="ml-auto" navbar>
                     <NavItem>
                       <NavLink tag={Link} to="/">Home</NavLink>
@@ -60,9 +57,10 @@ class NavItems extends Component {
                     </NavItem>
                   </Nav>
                 </Collapse>
+                            
               </Fragment>
-            )
-          }
+           )
+          }  
         </Navbar>
       </div>
     );
@@ -74,9 +72,10 @@ NavItems.propTypes = {
   authedUser: PropTypes.string,
 };
 
-function mapStateToProps({ authedUserId }) {
+function mapStateToProps({  authedUser }) {
   return {
-    authedUserId,
+    authedUser,
+    
   };
 }
 
