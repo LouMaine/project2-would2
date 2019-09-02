@@ -4,6 +4,6 @@ export const routes = {
   questions: "/questions/",
   addQuestion: "/add/",
   leaderboard: "/leaderboard/",
-  logout: "/logout/"
-  //error: "/error/"
+  logout: "/logout/",
+  error: "/errorpage/"
 };

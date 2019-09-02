@@ -25,7 +25,8 @@ export const getUsers = async () => {
     ]).then(([users, questions]) => ({
       users,
       questions,
-    }))
+    })
+    );
   }
 
 
@@ -58,9 +59,9 @@ export const getQuestions = async () => {
   }
 };
 **/
-export const saveQuestionAnswer = async (authedUserId, qid, answer) => {
+export const saveQuestionAnswer = async (authedUser, qid, answer) => {
   try {
-    DATA._saveQuestionAnswer({authedUser:authedUserId, qid, answer});
+    DATA._saveQuestionAnswer({authedUser:authedUser, qid, answer});
   } catch (error) {
     console.log("Error occurred, answer not saved", error);
   }
