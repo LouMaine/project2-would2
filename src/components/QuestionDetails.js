@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Card, CardHeader, CardBody, CardTitle, FormGroup, Label, Input, Form, Button } from "reactstrap";
 import { FaCheck } from "react-icons/fa";
-import { handleSaveAnswer } from "../actions/shared";
+import { handleSaveQuestionAnswer } from "../actions/users";
 import Avatar from "./Avatar";
 
 /*** Used FormGroup, Card, CardBody, Labels code from the 'reactstrap' website and 'Github notes'****/
@@ -27,7 +27,7 @@ class QuestionDetails extends Component {
   }
 
   render() {
-    const {questionAuthor, Author, User, question,  isAnswered, isOptionOneAnswered } = this.props;
+    const {questionAuthor, User, question,  isAnswered, isOptionOneAnswered } = this.props;
 
     if (!question) {
       return <Redirect to="/ErrorPage" />;
@@ -45,7 +45,7 @@ class QuestionDetails extends Component {
     return (
       <Card>
         <CardHeader>
-        /***  Information from reactstrap Github components Cards, Forms Buttons**/
+       { /***  Information from reactstrap Github components Cards, Forms Buttons**/}
          <User id={questionAuthor.id} /> 
         </CardHeader>
         <CardBody>
@@ -106,7 +106,7 @@ const mapDispatchToProps = (dispatch, props) => {
   const { id } = props.match.params;
   return {
     saveAnswer: (answer) => {
-      dispatch(handleSaveAnswer(id, answer));
+      dispatch(handleSaveQuestionAnswer(id, answer));
     },
   };
 };
