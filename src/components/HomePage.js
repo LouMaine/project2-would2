@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from "react";
+import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { TabContent, Nav, NavItem, TabPane } from "reactstrap";
 
@@ -29,7 +29,7 @@ class HomePage extends Component {
   }
 
   render() {
-  const { userQuestionData, unanswered, answered }=this.props;
+  const { user, users, unanswered, answered }=this.props;
        
 
     return (
@@ -60,7 +60,7 @@ class HomePage extends Component {
         <TabContent activeTab={this.state.activeTab}>
                     
           <TabPane tabId="1">
-             {userQuestionData.unanswered.map(question => (
+             {unanswered.map(question => (
                  <Question 
                   key ={question.qid}
                   question_id={question.id}
@@ -72,7 +72,7 @@ class HomePage extends Component {
               </TabPane>
               
          <TabPane tabId="2">
-            {userQuestionData.answered.map(question => (
+            {answered.map(question => (
                <Question 
                 key ={question.qid}
                  question_id={question.id}
@@ -90,15 +90,15 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  userQuestionData: PropTypes.array.isRequired,
-  answeredQuestions: PropTypes.array.isRequired,
-  unansweredQuestions: PropTypes.array.isRequired,
+  //userQuestionData: PropTypes.array.isRequired,
+  answered: PropTypes.array.isRequired,
+  unanswered: PropTypes.array.isRequired,
 };
 
-function mapStateToProps({ questions, users, authedUserId, answers }) {
-  const user = users[authedUserId];
+function mapStateToProps({ questions, users, authedUser, answers }) {
+  const user = users[authedUser];
 
-  const answeredIds = Object.keys(users[authedUserId].answers);
+  const answeredIds = Object.keys(users[authedUser].answers);
   const answered = Object.values(questions)
     .filter(question => answeredIds.includes(question.id))
     .sort((a, b) => b.timestamp - a.timestamp);
@@ -108,12 +108,11 @@ function mapStateToProps({ questions, users, authedUserId, answers }) {
     .sort((a, b) => b.timestamp - a.timestamp);
 
   return {
-    userQuestionData: {
       answered,
       unanswered
      }
     }
-    //user:user[authedUserId]
-  }
+    //user:user[authedUser]
+  
 
 export default connect(mapStateToProps)(HomePage);
