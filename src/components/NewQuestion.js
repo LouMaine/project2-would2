@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { routes } from "../utils/index";
 import {Card, CardBody, CardTitle, Input, Label, Button, FormGroup, Form } from "reactstrap";
 import { handleSaveQuestion } from "../actions/questions";
-import UnansweredQuestionCard from "./UnansweredQuestionCard";
+import UnansweredQuestionsCard from "./UnansweredQuestionsCard";
 
 
 export class NewQuestion extends Component {
