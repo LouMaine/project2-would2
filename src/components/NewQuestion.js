@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { routes } from "../utils";
+import { routes } from "../utils/index";
 import {Card, CardBody, CardTitle, Input, Label, Button, FormGroup, Form } from "reactstrap";
-
 import { handleSaveQuestion } from "../actions/questions";
+import UnansweredQuestionCard from "./UnansweredQuestionCard";
+
 
 export class NewQuestion extends Component {
   static propTypes = {
@@ -46,7 +47,8 @@ export class NewQuestion extends Component {
   render() {
         //const disabled = this.state.option1 === '' || this.state.option2 === '';
          const { option1, option2 } = this.state
-     
+     return <Redirect to="/" />
+   
     return (
       //<Fragment>
       <Card>
