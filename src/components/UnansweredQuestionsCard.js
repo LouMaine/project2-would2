@@ -7,7 +7,7 @@ export const UnansweredQuestions = props => {
   return (
     <React.Fragment>
       {unansweredQuestions.map(question => {
-        const {question, author.id, answer}=unansweredQuestion;
+        //const {question, author.id, answer}=unansweredQuestion;
         const user = users.find(user => user.id === question.author);
         return (
           <React.Fragment key={question.id}>
