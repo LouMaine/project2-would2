@@ -23,11 +23,11 @@ class QuestionDetails extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.saveAnswer(this.state.selectedAnswer);
+    this.props.AnswerToQuestion(this.state.selectedAnswer);
   }
 
   render() {
-    const {questionAuthor, User, question,  isAnswered, isOptionOneAnswered } = this.props;
+    const {questionAuthor, user, question,  isAnswered, isOptionOneAnswered } = this.props;
 
     if (!question) {
       return <Redirect to="/ErrorPage" />;
@@ -40,13 +40,17 @@ class QuestionDetails extends Component {
     const percentageOptionOne = (optionOneVotes / (optionOneVotes + optionTwoVotes) * 100).toFixed(2);
     const percentageOptionTwo = (optionTwoVotes / (optionOneVotes + optionTwoVotes) * 100).toFixed(2);
 
-    const checkmark = <FaCheck size="30" color="gray" />;
+    const checkmark = <FaCheck size="5" color="gray" />;
 
     return (
-      <Card>
+         //<questionAuthor = users[question.author] />
+       <Card>
+                       
         <CardHeader>
        { /***  Information from reactstrap Github components Cards, Forms Buttons**/}
-         <User id={questionAuthor.id} /> 
+          
+          <user id={questionAuthor.id}/>
+                  
         </CardHeader>
         <CardBody>
           <CardTitle>Rather Do...?</CardTitle>
@@ -86,7 +90,7 @@ QuestionDetails.propTypes = {
   question: PropTypes.object,
   questionAuthor: PropTypes.object,
   isAnswered: PropTypes.bool.isRequired,
-  saveAnswer: PropTypes.func.isRequired,
+  AnswerToQuestion: PropTypes.func.isRequired,
   isOptionOneAnswered: PropTypes.bool.isRequired,
 };
 
@@ -105,7 +109,7 @@ const mapStateToProps = ({ questions, users, authedUser }, props) => {
 const mapDispatchToProps = (dispatch, props) => {
   const { id } = props.match.params;
   return {
-    saveAnswer: (answer) => {
+    AnswerToQuestion: (answer) => {
       dispatch(handleSaveQuestionAnswer(id, answer));
     },
   };
