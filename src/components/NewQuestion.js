@@ -47,7 +47,7 @@ export class NewQuestion extends Component {
   render() {
         //const disabled = this.state.option1 === '' || this.state.option2 === '';
          const { option1, option2 } = this.state
-     return <Redirect to="/" />
+
    
     return (
       //<Fragment>
