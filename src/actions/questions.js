@@ -1,5 +1,6 @@
 import {showLoading, hideLoading} from "react-redux-loading-bar";
-import { _saveQuestion } from "../_DATA";
+
+import { saveQuestion } from "../utils/api";
 import { QuestionToUser } from "../actions/users";
 //import { AnsweRToQuestion} from "../actions/questions";
 
@@ -34,7 +35,7 @@ export const handleSaveQuestion=(optionOneText, optionTwoText)=> (dispatch, getS
    const {authedUser} = getState();
    dispatch(showLoading());
 
-    return _saveQuestion({
+    return saveQuestion({
      optionOneText,
      optionTwoText,
      author: authedUser
