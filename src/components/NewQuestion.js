@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { routes } from "../utils/index";
+import { routes } from "../utils";
 import {Card, CardBody, CardTitle, Input, Label, Button, FormGroup, Form } from "reactstrap";
 import { handleSaveQuestion } from "../actions/questions";
-import UnansweredQuestionsCard from "./UnansweredQuestionsCard";
+
 
 
 export class NewQuestion extends Component {
@@ -16,39 +16,50 @@ export class NewQuestion extends Component {
   
   state = {
     option1: '',
-    option2: ''
+    option2: '',
+    toHomePage: false
   };
 
-  handleOptionOneChange = e => {
+ /** handleOptionOneChange = (e) => {
   e.preventDefault();
-  const {value} = e.target
-    this.setState({ option1: e.target.value,
-    });
-}
+  //const {value, id} = e.target
+  this.setState({ option1: e.target.value,
 
-  handleOptionTwoChange =e => { 
-  e.preventDefault();
-  const {value} = e.target
-  this.setState({ option2: e.target.value,
     });
+}**/
+
+  handleOptionChange =(e) => { 
+  e.preventDefault();
+      this.setState({ [e.target.id]: e.target.value });
+ // const {value, id} = e.target
+ // this.setState({() => ({[id]: value}))
+
 }
 
   
-  handleSubmit = e => {
-    e.preventDefault();
-       const {authedUser, handleSaveQuestion} =this.props;
-       const {option1, option2}=this.state;
-                     
-       }                     
+  handleSubmit = (e) => {
+    e.preventDefault()
+      // const {authedUser, handleSaveQuestion} =this.props;
+       const {option1, option2}=this.state
+       const {dispatch} = this.props 
+       handleSaveQuestion(option1, option2)
+       this.setState(() => ({
+        option1: "",
+        option2: "",
+        toHomePage: true
+        }))
+        }         
+                       
 
        
 
 
   render() {
         //const disabled = this.state.option1 === '' || this.state.option2 === '';
-         const { option1, option2 } = this.state
-
-   
+         const { option1, option2, toHomePage } = this.state
+         if (toHomePage===true) {
+         return <Redirect to="/" />
+   }
     return (
       //<Fragment>
       <Card>
@@ -63,7 +74,7 @@ export class NewQuestion extends Component {
               id="option1"
               value={option1}
               placeholder="First Option"
-              onChange={this.handleOptionOneChange}
+              onChange={this.handleOptionChange}
               />
          </FormGroup>   
             <br />      
@@ -74,7 +85,7 @@ export class NewQuestion extends Component {
                id="option2"
                value={option2}
                placeholder="Second Option"
-               onChange={this.handleOptionTwoChange}
+               onChange={this.handleOptionChange}
                
                />
            
