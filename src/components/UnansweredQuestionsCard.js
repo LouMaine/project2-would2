@@ -3,15 +3,16 @@ import { connect } from "react-redux";
 import UserQuestionsCard from "./UserQuestionsCard";
 import {handleSaveQuestion} from "./actions/questions"
 import {QuestionToUser} from "./actions/users";
+import {AnswerToUser} from "./actions/users"
 
 export const UnansweredQuestions = props => {
-  const { author, questionAuthor, user, users, unansweredQuestions } = props;
+  const { users, unansweredQuestions } = props;
   return (
     <React.Fragment>
 
       {unansweredQuestions.map(question => {
-       //const {  authedUser, question, author, answer, qid}=unansweredQuestion;
-        const user = state.users.find(user => user.id === questionAuthor.id);
+       //const {  authedUser, qid, answer}=unansweredQuestion;
+        const userId = state.users.find(user => user.id === question.author);
         return (
           <React.Fragment key={question.id}>
             <UserQuestionsCard
@@ -32,8 +33,9 @@ export const UnansweredQuestions = props => {
 const mapStateToProps = state => {
   const authedUser = state.users.find(user => user.id === state.authedUserId);
   const unansweredQuestions = [];
-  const answeredQuestions = Object.keys(authedUser.answers).map(key => 
-   state.questions.find(question => question.id === key)
+  const answeredQuestions = Object.keys(authedUser.answers).map(key => {
+   const question = state.questions.find(question => question.id === key)
+  }
   
   
   );
