@@ -1,34 +1,40 @@
 
 import { RECEIVE_USERS } from "../actions/users";
 import {ANSWER_TO_USER} from "../actions/users";
-import {QUESTION_TO_USER} from "../actions/users"
+import {QUESTION_TO_USER} from "../actions/users";
 
 
 
 
 
-const users = (state={}, action) => {
+export const users = (state={}, action) => {
   switch (action.type) {
+
     case RECEIVE_USERS: 
     return {
     ...state,
     ...action.users,
   };
-     case ANSWER_TO_USER:
+     case ANSWER_TO_USER: 
       const { authedUser, qid, answer } = action;
       console.log(state[authedUser]);
-
       return {
+       // console.log(state, authedUser);
         ...state,
         [authedUser]: {
+       //console.log(state, authedUser); 
           ...state[authedUser],
+       //console.log(state, authedUser);   
+         
           answers: {
             ...state[authedUser].answers,
             [qid]: answer
-          }
-        }
+            
+          },
+        },
       };
-      case QUESTION_TO_USER:
+
+      case QUESTION_TO_USER: 
       const { id, author } = action;
 
       return {
@@ -36,12 +42,12 @@ const users = (state={}, action) => {
         [author]: {
           ...state[author],
           questions: state[author].questions.concat(id)
-        }
+         
+       }
       };
 
   default:
-  return state;
+  return state
   }
 }
-
 export default users;
