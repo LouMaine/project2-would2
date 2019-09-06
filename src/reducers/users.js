@@ -16,6 +16,8 @@ const users = (state={}, action) => {
   };
      case ANSWER_TO_USER:
       const { authedUser, qid, answer } = action;
+      console.log(state[authedUser]);
+
       return {
         ...state,
         [authedUser]: {
