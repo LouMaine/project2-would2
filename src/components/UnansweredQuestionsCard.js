@@ -1,23 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
 import UserQuestionsCard from "./UserQuestionsCard";
-import {handleSaveQuestion} from "./actions/questions"
-import {QuestionToUser} from "./actions/users";
-import {AnswerToUser} from "./actions/users"
+//import QuestionDetails from "./QuestionDetails";
+//import {handleSaveQuestion} from "./actions/questions"
+//import {QuestionToUser} from "./actions/users";
+//import {AnswerToUser} from "./actions/users"
 
 export const UnansweredQuestions = props => {
-  const { users, unansweredQuestions } = props;
+  const { answer, unansweredQuestions } = props;
+  const {users} = this.props;
+    const {userId} =this.state;
+    
   return (
     <React.Fragment>
 
-      {unansweredQuestions.map(question => {
-       //const {  authedUser, qid, answer}=unansweredQuestion;
-        const userId = state.users.find(user => user.id === question.author);
+      {unansweredQuestions.map(unansweredQuestion => {
+       const {  userId, answer, question, author, qid,  }=unansweredQuestion;
+        //const authedUser= state.users.find(user => user.id === question.author);
+       console.log(.name);
         return (
           <React.Fragment key={question.id}>
             <UserQuestionsCard
-              avatarUrl={user.avatarURL}
-              name={user.name}
+              avatarUrl={users.avatarURL}
+              name={users.name}
               questionId={question.id}
               optionsSummaryText={question.optionOne.text
                 .substring(0, 20)
@@ -33,13 +38,11 @@ export const UnansweredQuestions = props => {
 const mapStateToProps = state => {
   const authedUser = state.users.find(user => user.id === state.authedUserId);
   const unansweredQuestions = [];
-  const answeredQuestions = Object.keys(authedUser.answers).map(key => {
-   const question = state.questions.find(question => question.id === key)
-  }
+  const unansweredQuestions = Object.keys(authedUser.answers).map(key => {
+   const question = state.questions.find(question => question.id === key);
   
   
-  );
-
+                    
   state.questions.forEach(question => {
     let found = false;
     answeredQuestions.forEach(answeredQuestion => {
@@ -54,6 +57,7 @@ const mapStateToProps = state => {
         ) === undefined
       ) {
         unansweredQuestions.push(question);
+      
       }
     }
   });
@@ -61,7 +65,7 @@ const mapStateToProps = state => {
   return {
     users: state.users,
     unansweredQuestions: unansweredQuestions.sort((a,b)=>{
-      return b.timestamp-a.timestamp
+      return b.question.timestamp-a.question.timestamp;
     })
   };
 };
