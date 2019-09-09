@@ -1,42 +1,51 @@
-import { saveQuestionAnswer } from "../utils/api";
-import { AnswerToQuestion } from "../actions/questions";
-//import { AnswerToQuestion} from "../actions/questions"
+
+import { RECEIVE_USERS } from "../actions/users";
+import {ANSWER_TO_USER} from "../actions/users";
+import {QUESTION_TO_USER} from "../actions/users";
 
 
-export const RECEIVE_USERS = "RECEIVE_USERS";
-export const ANSWER_TO_USER = "ANSWER_TO_USER";
-export const QUESTION_TO_USER= "QUESTION_TO_USER";
 
 
-export const receiveUsers = users => ({
-    type: RECEIVE_USERS,
-    users
-  });
 
-function AnswerToUser(authedUser, qid, answer) {
-  return {
-    type: ANSWER_TO_USER,
-    authedUser,
-    qid,
-    answer
+export const users = (state={}, action) => {
+  switch (action.type) {
+
+    case RECEIVE_USERS: 
+    return {
+    ...state,
+    ...action.users,
   };
-}
 
-export function handleSaveQuestionAnswer(authedUser, qid, answer) {
-  return dispatch => {
-    dispatch(AnswerToUser(authedUser, qid, answer));
-    dispatch(AnswerToQuestion(authedUser, qid, answer));
+     case ANSWER_TO_USER: 
+      const { authedUser, qid, answer } = action;
+     console.log(state, authedUser);
+      return {
+        ...state,
+        [action.authedUser]: {
+          ...state[action.authedUser],
+               
+          answers: {
+            ...state[action.authedUser].answers,
+            [action.qid]: action.option
+            }
+          }
+        };
+      
 
-    return saveQuestionAnswer(authedUser, qid, answer).catch(e => {
-      console.warn('Error in handleSaveQuestionAnswer:', e);
-    });
-  };
-}
+      case QUESTION_TO_USER:  
+      const { id, author } = action;
 
-export function QuestionToUser({ id, author }) {
-  return {
-    type: QUESTION_TO_USER,
-    id,
-    author
-  };
-}
+      return {
+        ...state,
+        [action.author]: {
+          ...state[action.author],
+          questions: state[action.author].questions.concat([action.id])
+        }, 
+       
+      }
+
+  default:
+  return state
+  }
+};
+export default users;
