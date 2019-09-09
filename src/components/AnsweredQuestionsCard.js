@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import UserQuestionsCard from "./UserQuestionsCard";
+import QuestionDetails from "./QuestionDetails";
 
 export const AnsweredQuestions = props => {
   const { answeredQuestions } = props;
@@ -14,7 +15,7 @@ export const AnsweredQuestions = props => {
               avatarUrl={author.avatarURL}
               name={author.name}
               questionId={question.id}
-              optionsSummaryText={question[answer].text
+              optionsSummaryText={question[answer].text    
                 .substring(0, 20)
                 .concat("...")}
             />
