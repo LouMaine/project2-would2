@@ -15,39 +15,37 @@ export const users = (state={}, action) => {
     ...state,
     ...action.users,
   };
+
      case ANSWER_TO_USER: 
       const { authedUser, qid, answer } = action;
-      console.log(state[authedUser]);
+     console.log(state, authedUser);
       return {
-       // console.log(state, authedUser);
         ...state,
-        [authedUser]: {
-       //console.log(state, authedUser); 
-          ...state[authedUser],
-       //console.log(state, authedUser);   
-         
+        [action.authedUser]: {
+          ...state[action.authedUser],
+               
           answers: {
-            ...state[authedUser].answers,
-            [qid]: answer
-            
-          },
-        },
-      };
+            ...state[action.authedUser].answers,
+            [action.qid]: action.option
+            }
+          }
+        };
+      
 
-      case QUESTION_TO_USER: 
+      case QUESTION_TO_USER:  
       const { id, author } = action;
 
       return {
         ...state,
-        [author]: {
-          ...state[author],
-          questions: state[author].questions.concat(id)
-         
-       }
-      };
+        [action.author]: {
+          ...state[action.author],
+          questions: state[action.author].questions.concat([action.id])
+        }, 
+       
+      }
 
   default:
   return state
   }
-}
+};
 export default users;
