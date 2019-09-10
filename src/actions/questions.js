@@ -38,7 +38,7 @@ export const handleSaveQuestion=(optionOneText, optionTwoText)=> (dispatch, getS
     return saveQuestion({
      optionOneText,
      optionTwoText,
-     author: authedUser
+     author: authedUser,
      })
      .then(
       question => {
