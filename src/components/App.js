@@ -15,6 +15,7 @@ import QuestionDetails from "./QuestionDetails";
 import Leaderboard from "./Leaderboard";
 import NewQuestion from "./NewQuestion";
 import ErrorPage from "./ErrorPage";
+//import {routes} from "../utils/index";
 
 
 class App extends Component {
