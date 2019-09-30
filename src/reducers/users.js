@@ -17,16 +17,16 @@ export const users = (state={}, action) => {
   };
 
      case ANSWER_TO_USER: 
-      const { authedUser, qid, answer } = action;
-     console.log(state, authedUser);
+      const {  qid, authedUser, answer } = action;
+     console.log(state, qid, authedUser)
       return {
         ...state,
-        [action.authedUser]: {
-          ...state[action.authedUser],
+        [authedUser]: {
+          ...state[authedUser],
                
           answers: {
-            ...state[action.authedUser].answers,
-            [action.qid]: action.option
+            ...state[authedUser].answers,
+            [qid]: answer,
             }
           }
         };
@@ -37,12 +37,12 @@ export const users = (state={}, action) => {
 
       return {
         ...state,
-        [action.author]: {
-          ...state[action.author],
-          questions: state[action.author].questions.concat([action.id])
-        }, 
+        [author]: {
+          ...state[author],
+          questions: state[author].questions.concat(id)
+        } 
        
-      }
+      };
 
   default:
   return state

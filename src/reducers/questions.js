@@ -1,6 +1,5 @@
 import {RECEIVE_QUESTIONS} from "../actions/questions";
 import {ANSWER_TO_QUESTION} from "../actions/questions";
-
 import {ADD_QUESTION} from "../actions/questions";
 
 export const questions = (state = {}, action) => {
