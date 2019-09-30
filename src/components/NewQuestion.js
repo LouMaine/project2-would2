@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { routes } from "../utils";
 import {Card, CardBody, CardTitle, Input, Label, Button, FormGroup, Form } from "reactstrap";
 import { handleSaveQuestion } from "../actions/questions";
+import {handleSaveQuestionAnswer} from "../actions/users";
+//import UnansweredQuestionsCard from "./UnansweredQuestionsCard";
 
 
 
@@ -42,7 +44,7 @@ export class NewQuestion extends Component {
       // const {authedUser, handleSaveQuestion} =this.props;
        const {option1, option2}=this.state
        const {dispatch} = this.props 
-       handleSaveQuestion(option1, option2)
+       this.props.handleSaveQuestion(option1, option2)
        this.setState(() => ({
         option1: "",
         option2: "",
@@ -68,7 +70,7 @@ export class NewQuestion extends Component {
         
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
-          <Label for="optionOne" lg={2}>Option One</Label>
+          <Label for="optionOne"md={2}>Option One</Label>
             <Input type="text"
               name="option1"
               id="option1"
@@ -79,7 +81,7 @@ export class NewQuestion extends Component {
          </FormGroup>   
             <br />      
          <FormGroup>
-          <Label for="optionTwo" lg={2}>Option Two</Label>
+          <Label for="optionTwo" md={2}>Option Two</Label>
              <Input type="text"
                name="option2"
                id="option2"
