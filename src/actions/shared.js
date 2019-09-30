@@ -1,9 +1,7 @@
 import { showLoading, hideLoading } from "react-redux-loading-bar";
-import { _getUsers, _getQuestions } from "../_DATA";
-
-//import { getInitialData } from "../utils/api";
-import { receiveQuestions } from "../actions/questions";
-import { receiveUsers } from "../actions/users";
+import { _getUsers, _getQuestions, _saveQuestionAnswer } from "../_DATA";
+import { receiveUsers, AnswerToUser } from "../actions/users";
+import { receiveQuestions, AnswerToQuestion  } from "../actions/questions";
 
 
 
@@ -15,4 +13,20 @@ export const handleInitialData = () => (dispatch) => {
       dispatch(receiveQuestions(questions));
       dispatch(hideLoading());
     });
+};
+
+export const handleSaveQuestionAnswer = (qid, answer) => (dispatch, getState) => {
+  const { authedUser } = getState();
+
+  dispatch(showLoading());
+  return _saveQuestionAnswer({
+    authedUser,
+    qid,
+    answer,
+  })
+    .then(() => {
+      dispatch(AnswerToQuestion(authedUser, qid, answer));
+      dispatch(AnswerToUser(authedUser, qid, answer));
+    })
+    .then(() => dispatch(hideLoading()));
 };
