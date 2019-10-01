@@ -11,7 +11,7 @@ How to Create files for this React/Redux front end Application:
 
 1. Use Create React App to bootstrap the project.
 
-2. Installing and Launching the project
+2. This is for installing and launching the project
 3. Change to the directory of the project
 4. Run npm install or yarn to install all dependencies
 5. Run npm start or yarn start to start the web development application server
@@ -24,17 +24,18 @@ You can learn more information on REACT from these locations searches:
 Components Name  Description
 
  Nav:  navigation to to pages in the program 
- AddQuestionPage:  Page to add poll question
+ NewQuestion Page:  Page to add poll question
  HomePage: Page to render the list of answered and unanswered questions for the logged in user LeaderboardPage: Page to display the leaderboard of users
- LoginPage: Page to allow selection of user to log in as Avatar
- ErrorPage: error message alert if steps are not followed
- QuestionDetails: Component that displays a summary of a poll question options details
- UserPage: returns user login Avatar information
+ Login Page: Page to allow selection of user to log in as Avatar
+ ErrorPage: Page error message alert if steps are not followed
+ QuestionDetails Page: Page where Component that displays a summary of a poll question options details
+ Avatar Page: Page returns user login Avatar information
 
 Utils
+Navlinks/
 routes - this contains the list of routes used by React-Router in navigating thru the application
 State objects
-State objects follow the layout of the database namely
+State objects follow the layout of the database name
 
 Users - holds the list of users
 Questions - holds the list of questions objects in the database
@@ -47,8 +48,8 @@ Users:
 Questions:
 
 Attribute	Type	Description
-identifier	String	The userâ€™s unique identifier
-name		String	The userâ€™s first name and last name
+identifier	String	The users unique identifier
+name		String	The users first name and last name
 avatarURL	String	The path to the image file
 questions	Array	A list of ids of the polling questions this user created
 answers		Object	The object's keys are the ids of each question this user answered. The value of each key is the answer the user selected. It can be either 'optionOne' or 'optionTwo' since each question has two options.
