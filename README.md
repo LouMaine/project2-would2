@@ -4,7 +4,7 @@ This project is for the React & Redux course. It's a would you rather do this or
 The game displays leaderboard and polling page for each users questions. And Users can ask new new question.
 
 The _DATA.js file is the database used for creating the project. 
-Each login user (avatar) has an avatar it corresponds the file name needs the path to each user™s avatar.
+Each login user (avatar) has an avatar it corresponds the file name needs the path to each users avatar.
 
 
 How to Create files for this React/Redux front end Application:
@@ -22,18 +22,21 @@ You can learn more information on REACT from these locations searches:
 
 
 Components Name  Description
-
+App Page: Page that starts the project code
  Nav:  navigation to  move through pages in the program 
- AddQuestionPage:  Page to add poll question
- HomePage: Page to render the list of answered and unanswered questions for the logged in user LeaderboardPage: Page to display the leaderboard of users
- LoginPage: Page to allow selection of user to log in as Avatar
- ErrorPage: error message alert if steps are not followed
+ NewQuestion Page:  Page to add poll question
+ Question Page: Page that contains the question list
+ HomePage: Page to render the list of answered and unanswered questions for the logged in user
+ LeaderboardPage: Page to display the leaderboard of users plus the Avatars ranking ingormation
+ Login Page: Page to allow selection of user to log in as Avatar
+ ErrorPage: Page error message alert if steps are not followed
  QuestionDetails: Component that displays a summary of a poll question options details
- AvatarPage: returns user login Avatar information
+ Avatar Page: returns user login Avatar information
+ AvatarUserCard Page: Page that holds avatar users
 
 Utils
 _DATA.js - fake database of Users, Questions, starter functions
-State -objects follow the layout of the database namely
+State -objects follow the layout of the database name
 
 Users - contains list of users
 Questions - contains the list of questions objects in the database
